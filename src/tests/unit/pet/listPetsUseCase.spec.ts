@@ -1,7 +1,7 @@
-import { OrgInMemoryRepository } from "@/domain/repositories/in-memory/OrgInMemoryRepository";
-import { PetInMemoryRepository } from "@/domain/repositories/in-memory/PetInMemoryRepository";
-import { OrgRepository } from "@/domain/repositories/orgRepository";
-import { PetRepository } from "@/domain/repositories/petRepository";
+import { OrgInMemoryRepository } from "@/tests/in-memory-repositories/OrgInMemoryRepository";
+import { PetInMemoryRepository } from "@/tests/in-memory-repositories/PetInMemoryRepository";
+import { OrgRepository } from "@/repositories/orgRepository";
+import { PetRepository } from "@/repositories/petRepository";
 import { ListPetsUseCase } from "@/domain/use-cases/pet/listPetsUseCase";
 import { ResourceNotFoundError } from "@/errors/NotFoundError";
 import { EnergyLevel, Size } from "@prisma/client";

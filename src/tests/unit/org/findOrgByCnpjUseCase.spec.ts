@@ -1,5 +1,5 @@
-import { OrgInMemoryRepository } from "@/domain/repositories/in-memory/OrgInMemoryRepository";
-import { OrgRepository } from "@/domain/repositories/orgRepository";
+import { OrgInMemoryRepository } from "@/tests/in-memory-repositories/OrgInMemoryRepository";
+import { OrgRepository } from "@/repositories/orgRepository";
 import { FindOrgByCnpjUseCase } from "@/domain/use-cases/org/findOrgByCnpjUseCase";
 import { InvalidDataError } from "@/errors/InvalidDataError";
 import { ResourceNotFoundError } from "@/errors/NotFoundError";

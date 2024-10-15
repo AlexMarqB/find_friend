@@ -1,4 +1,4 @@
-import { OrgRepository } from "@/domain/repositories/orgRepository";
+import { OrgRepository } from "@/repositories/orgRepository";
 import { ResourceNotFoundError } from "@/errors/NotFoundError";
 
 

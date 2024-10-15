@@ -1,5 +1,5 @@
-import { OrgInMemoryRepository } from "@/domain/repositories/in-memory/OrgInMemoryRepository";
-import { OrgRepository } from "@/domain/repositories/orgRepository";
+import { OrgInMemoryRepository } from "@/tests/in-memory-repositories/OrgInMemoryRepository";
+import { OrgRepository } from "@/repositories/orgRepository";
 import { RegisterOrgUseCase } from "@/domain/use-cases/org/registerOrgUseCase";
 import { InvalidDataError } from "@/errors/InvalidDataError";
 import { Org } from "@prisma/client";

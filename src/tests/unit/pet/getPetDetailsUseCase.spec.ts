@@ -1,9 +1,9 @@
-import { PetInMemoryRepository } from "@/domain/repositories/in-memory/PetInMemoryRepository";
-import { PetRepository } from "@/domain/repositories/petRepository";
+import { PetRepository } from "@/repositories/petRepository";
 import { GetPetDetailsUseCase } from "@/domain/use-cases/pet/getPetDetailsUseCase";
 import { ResourceNotFoundError } from "@/errors/NotFoundError";
 import { EnergyLevel, Pet, Size } from "@prisma/client";
 import { beforeEach, describe, expect, it } from "vitest";
+import { PetInMemoryRepository } from "@/tests/in-memory-repositories/PetInMemoryRepository";
 
 let sut: GetPetDetailsUseCase;
 let repository: PetRepository;

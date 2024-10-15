@@ -1,4 +1,4 @@
-import { OrgRepository } from "@/domain/repositories/orgRepository";
+import { OrgRepository } from "@/repositories/orgRepository";
 import { InvalidDataError } from "@/errors/InvalidDataError";
 import { ResourceNotFoundError } from "@/errors/NotFoundError";
 import { stringFormaters } from "@/utils";

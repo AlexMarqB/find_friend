@@ -1,5 +1,5 @@
-import { OrgRepository } from "@/domain/repositories/orgRepository";
-import { PetRepository } from "@/domain/repositories/petRepository";
+import { OrgRepository } from "@/repositories/orgRepository";
+import { PetRepository } from "@/repositories/petRepository";
 import { ResourceNotFoundError } from "@/errors/NotFoundError";
 import { Pet, Prisma } from "@prisma/client";
 

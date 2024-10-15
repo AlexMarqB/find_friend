@@ -1,9 +1,8 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { ListOrgsByCityUseCase } from '@/domain/use-cases/org/listOrgsByCityUseCase';
-import { OrgRepository } from '@/domain/repositories/orgRepository';
+import { OrgRepository } from '@/repositories/orgRepository';
 import { ResourceNotFoundError } from '@/errors/NotFoundError';
-import { OrgInMemoryRepository } from '@/domain/repositories/in-memory/OrgInMemoryRepository';
-import { Org } from '@prisma/client';
+import { OrgInMemoryRepository } from "@/tests/in-memory-repositories/OrgInMemoryRepository";
 import { stringFormaters } from '@/utils';
 
 describe('ListOrgsByCityUseCase unit test', () => {
