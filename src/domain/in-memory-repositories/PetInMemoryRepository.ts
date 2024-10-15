@@ -1,7 +1,7 @@
 import { Prisma, Pet, Org } from "@prisma/client";
-import { PetRepository } from "../petRepository";
 import cuid from "cuid";
 import { ResourceNotFoundError } from "@/errors/NotFoundError";
+import { PetRepository } from "@/repositories/petRepository";
 
 export class PetInMemoryRepository implements PetRepository {
     private items: Pet[] = [];

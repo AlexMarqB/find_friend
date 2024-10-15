@@ -1,5 +1,5 @@
+import { OrgRepository } from "@/repositories/orgRepository";
 import { Prisma, Org } from "@prisma/client";
-import { OrgRepository } from "../orgRepository";
 import cuid from "cuid";
 
 export class OrgInMemoryRepository implements OrgRepository {
