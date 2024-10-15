@@ -26,30 +26,20 @@ enum EnergyLevel {
 }
 
 model Pet {
-  id           String      @id @default(cuid())
-  org_id       String
-  name         String
-  about        String
-  age          Int
-  size         Size
-  energy_level EnergyLevel
-  breed        String
-  adopted      Boolean     @default(false)
+  id                    String      @id @default(cuid())
+  org_id                String
+  name                  String
+  about                 String
+  age                   Int
+  size                  Size
+  energy_level          EnergyLevel
+  breed                 String
+  adopted               Boolean     @default(false)
+  adoption_requirements String // Comma-separated string
 
-  AdoptionNeeds AdoptionNeeds[]
-  Org           Org             @relation(fields: [org_id], references: [id])
+  Org Org @relation(fields: [org_id], references: [id])
 
   @@map("tb_pet")
-}
-
-model AdoptionNeeds {
-  id     String @id @default(cuid())
-  pet_id String
-  needs  String // Uma string com as necessiadedes separadas por ;
-
-  pet Pet @relation(fields: [pet_id], references: [id])
-
-  @@map("tb_adoption_needs")
 }
 
 model Org {
