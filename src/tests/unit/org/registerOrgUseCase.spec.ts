@@ -1,4 +1,4 @@
-import { OrgInMemoryRepository } from "@/tests/unit/in-memory-repositories/OrgInMemoryRepository";
+import { OrgInMemoryRepository } from "@/domain/in-memory-repositories/OrgInMemoryRepository";
 import { OrgRepository } from "@/repositories/orgRepository";
 import { RegisterOrgUseCase } from "@/domain/use-cases/org/registerOrgUseCase";
 import { InvalidDataError } from "@/errors/InvalidDataError";

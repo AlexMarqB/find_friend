@@ -3,7 +3,7 @@ import { GetPetDetailsUseCase } from "@/domain/use-cases/pet/getPetDetailsUseCas
 import { ResourceNotFoundError } from "@/errors/NotFoundError";
 import { EnergyLevel, Pet, Size } from "@prisma/client";
 import { beforeEach, describe, expect, it } from "vitest";
-import { PetInMemoryRepository } from "@/tests/unit/in-memory-repositories/PetInMemoryRepository";
+import { PetInMemoryRepository } from "@/domain/in-memory-repositories/PetInMemoryRepository";
 
 let sut: GetPetDetailsUseCase;
 let repository: PetRepository;

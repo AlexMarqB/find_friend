@@ -1,5 +1,5 @@
-import { OrgInMemoryRepository } from "@/tests/unit/in-memory-repositories/OrgInMemoryRepository";
-import { PetInMemoryRepository } from "@/tests/unit/in-memory-repositories/PetInMemoryRepository";
+import { OrgInMemoryRepository } from "@/domain/in-memory-repositories/OrgInMemoryRepository";
+import { PetInMemoryRepository } from "@/domain/in-memory-repositories/PetInMemoryRepository";
 import { OrgRepository } from "@/repositories/orgRepository";
 import { PetRepository } from "@/repositories/petRepository";
 import { RegisterPetUseCase } from "@/domain/use-cases/pet/registerPetUseCase";
