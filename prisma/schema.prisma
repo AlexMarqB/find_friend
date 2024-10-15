@@ -34,6 +34,7 @@ model Pet {
   size         Size
   energy_level EnergyLevel
   breed        String
+  adopted      Boolean     @default(false)
 
   AdoptionNeeds AdoptionNeeds[]
   Org           Org             @relation(fields: [org_id], references: [id])

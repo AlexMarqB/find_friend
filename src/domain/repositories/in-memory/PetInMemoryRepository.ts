@@ -9,7 +9,8 @@ export class PetInMemoryRepository implements PetRepository {
     async registerPet(data: Prisma.PetUncheckedCreateInput) {
         const pet = {
             ...data,
-            id: cuid()
+            id: cuid(),
+            adopted: false,
         }
 
         this.items.push(pet);
