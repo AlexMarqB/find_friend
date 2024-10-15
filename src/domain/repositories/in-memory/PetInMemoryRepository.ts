@@ -9,7 +9,7 @@ export class PetInMemoryRepository implements PetRepository {
     async registerPet(data: Prisma.PetUncheckedCreateInput) {
         const pet = {
             ...data,
-            id: cuid(),
+            id: data.id ?? cuid(),
             adopted: false,
         }
 
@@ -19,9 +19,10 @@ export class PetInMemoryRepository implements PetRepository {
     }
 
     async listPets(orgs: Org[], filters?: Partial<Pet>) {
-        if (!filters) return this.items; // If no filters are provided, return all items
-
+        
         const petsInCity = this.items.filter(pet => orgs.some(org => org.id === pet.org_id));
+
+        if (!filters) return petsInCity; // If no filters are provided, return all items
 
         const filteredPets = petsInCity.filter(pet => {
             for (const key in filters) {
