@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { ListOrgsByCityUseCase } from '@/domain/use-cases/org/listOrgsByCityUseCase';
 import { OrgRepository } from '@/repositories/orgRepository';
 import { ResourceNotFoundError } from '@/errors/NotFoundError';
-import { OrgInMemoryRepository } from "@/tests/in-memory-repositories/OrgInMemoryRepository";
+import { OrgInMemoryRepository } from "@/tests/unit/in-memory-repositories/OrgInMemoryRepository";
 import { stringFormaters } from '@/utils';
 
 describe('ListOrgsByCityUseCase unit test', () => {
