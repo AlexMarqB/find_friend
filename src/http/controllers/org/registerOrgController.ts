@@ -36,11 +36,8 @@ export class RegisterOrgController {
 
         } catch (error: any) { // use 'any' para capturar todos os tipos de erro
             if (error instanceof InvalidDataError) {
-                return reply.status(500).send({ error: 'Database Error', message: error.message });
+                return reply.status(500).send({ error: 'Invalid Data', message: error.message });
             }
-
-            // Tratamento genérico de erro
-            console.error('Internal error occurred:', error); // log do erro para monitoramento
             return reply.status(500).send({ error: 'Internal Server Error' });
         }
     }

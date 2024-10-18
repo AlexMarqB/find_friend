@@ -4,11 +4,11 @@ import { authenticateOrgController, refreshTokenController, registerOrgControlle
 export async function orgRoutes(app: FastifyInstance) {
     // Public routes
 
-    app.post("/register", registerOrgController)
+    app.post("/register", await registerOrgController())
 
     // Auth routes
 
-    app.post("/authenticate", authenticateOrgController)
+    app.post("/authenticate", await authenticateOrgController())
 
-    app.patch("/token/refresh", refreshTokenController)
+    app.patch("/token/refresh", await refreshTokenController())
 }
