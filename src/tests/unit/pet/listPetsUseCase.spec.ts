@@ -7,7 +7,6 @@ import { ResourceNotFoundError } from "@/errors/NotFoundError";
 import { EnergyLevel, Size } from "@prisma/client";
 import { beforeEach, describe, expect, it } from "vitest";
 
-
 let sut: ListPetsUseCase;
 let orgRepository: OrgRepository;
 let repository: PetRepository;
@@ -15,41 +14,40 @@ let repository: PetRepository;
 describe("ListPetsUseCase unit test", async () => {
 
     beforeEach(async () => {
-		repository = new PetInMemoryRepository();
+        repository = new PetInMemoryRepository();
         orgRepository = new OrgInMemoryRepository();
-		sut = new ListPetsUseCase(repository);
-	});
+        sut = new ListPetsUseCase(repository);
+    });
 
     it("Should be able to list all pets in the same city", async () => {
         await orgRepository.registerOrg({
-			id: "1",
-			cnpj: "98.436.729/0001-00",
-			responsable_name: "Test Org",
-			email: "testorg@example.com",
-			password: "securepassword",
-			whatsapp: "1234567890",
-			cep: "22461-040",
-			city: "Testville",
-			street: "123 Test St",
-			neighborhood: "Test Neighborhood",
-			number: "123",
-		})
+            id: "1",
+            cnpj: "98.436.729/0001-00",
+            responsable_name: "Test Org",
+            email: "testorg@example.com",
+            password: "securepassword",
+            whatsapp: "1234567890",
+            cep: "22461-040",
+            city: "Testville",
+            street: "123 Test St",
+            neighborhood: "Test Neighborhood",
+            number: "123",
+        });
 
         await orgRepository.registerOrg({
             id: "2",
-			cnpj: "98.436.729/0001-00",
-			responsable_name: "Test Org",
-			email: "testorg@example.com",
-			password: "securepassword",
-			whatsapp: "1234567890",
-			cep: "22461-040",
-			city: "Not Testville",
-			street: "123 Test St",
-			neighborhood: "Test Neighborhood",
-			number: "123",
-        })
+            cnpj: "98.436.729/0001-00",
+            responsable_name: "Test Org",
+            email: "testorg@example.com",
+            password: "securepassword",
+            whatsapp: "1234567890",
+            cep: "22461-040",
+            city: "Not Testville",
+            street: "123 Test St",
+            neighborhood: "Test Neighborhood",
+            number: "123",
+        });
 
-        
         const pet1 = {
             id: "1",
             about: "Friendly and playful",
@@ -59,9 +57,10 @@ describe("ListPetsUseCase unit test", async () => {
             energy_level: EnergyLevel.HIGH,
             name: "Buddy",
             org_id: "1",
-            size: Size.MEDIUM
-        }
-        
+            size: Size.MEDIUM,
+            adoption_requirements: "High"
+        };
+
         const pet2 = {
             id: "2",
             about: "Friendly and playful",
@@ -71,8 +70,9 @@ describe("ListPetsUseCase unit test", async () => {
             energy_level: EnergyLevel.HIGH,
             name: "Buddy",
             org_id: "1",
-            size: Size.MEDIUM
-        }
+            size: Size.MEDIUM,
+            adoption_requirements: "Medium"
+        };
 
         const pet3 = {
             id: "3",
@@ -83,14 +83,15 @@ describe("ListPetsUseCase unit test", async () => {
             energy_level: EnergyLevel.HIGH,
             name: "Buddy",
             org_id: "2",
-            size: Size.MEDIUM
-        }
+            size: Size.MEDIUM,
+            adoption_requirements: "Low"
+        };
 
         const orgs = await orgRepository.listOrgsByCity("Testville");
 
         await repository.registerPet(pet1);
         await repository.registerPet(pet2);
-        await repository.registerPet(pet3)
+        await repository.registerPet(pet3);
 
         const response = await sut.execute(orgs);
 
@@ -101,13 +102,13 @@ describe("ListPetsUseCase unit test", async () => {
                 expect.objectContaining({ id: expect.any(String) }),
             ])
         );
-    })
+    });
 
     it("Should not be able to list pets when there are no pets in the city", async () => {
         const orgs = await orgRepository.listOrgsByCity("NonExistentCity");
 
         await expect(sut.execute(orgs)).rejects.toBeInstanceOf(ResourceNotFoundError);
-    })
+    });
 
     it("Should be able to list pets with filters", async () => {
         await orgRepository.registerOrg({
@@ -134,6 +135,7 @@ describe("ListPetsUseCase unit test", async () => {
             name: "Buddy",
             org_id: "1",
             size: Size.MEDIUM,
+            adoption_requirements: "High"
         };
 
         const pet2 = {
@@ -146,6 +148,7 @@ describe("ListPetsUseCase unit test", async () => {
             name: "Max",
             org_id: "1",
             size: Size.LARGE,
+            adoption_requirements: "Medium"
         };
 
         await repository.registerPet(pet1);
@@ -161,5 +164,5 @@ describe("ListPetsUseCase unit test", async () => {
                 expect.objectContaining({ id: "1" }),
             ])
         );
-    })
-})
+    });
+});

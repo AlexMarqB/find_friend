@@ -14,18 +14,19 @@ describe("GetPetDetailsUseCase unit test", async () => {
 		sut = new GetPetDetailsUseCase(repository);
 	});
 
-	it("Should be able to get an Pet by its Id", async () => {
+	it("Should be able to get a Pet by its Id", async () => {
 		const pet: Pet = {
-            id: "1",
-            about: "Friendly and playful",
-            adopted: false,
-            age: 2,
-            breed: "Labrador",
-            energy_level: EnergyLevel.HIGH,
-            name: "Buddy",
-            org_id: "org-123",
-            size: Size.LARGE
-        };
+			id: "1",
+			about: "Friendly and playful",
+			adopted: false,
+			age: 2,
+			breed: "Labrador",
+			energy_level: EnergyLevel.HIGH,
+			name: "Buddy",
+			org_id: "org-123",
+			size: Size.LARGE,
+			adoption_requirements: "High"
+		};
 
 		const createResponse = await repository.registerPet(pet);
 
@@ -34,12 +35,13 @@ describe("GetPetDetailsUseCase unit test", async () => {
 		expect(response.pet).toEqual(
 			expect.objectContaining({
 				id: expect.any(String),
-                name: "Buddy",
+				name: "Buddy",
+				adoption_requirements: "High"
 			})
 		);
 	});
 
-	it("Should not be able to get an Pet that doesnt exist", async () => {
+	it("Should not be able to get a Pet that doesn't exist", async () => {
 		await expect(sut.execute("unexisting_id")).rejects.toBeInstanceOf(
 			ResourceNotFoundError
 		);

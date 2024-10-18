@@ -19,12 +19,12 @@ CREATE TABLE "tb_pet" (
 );
 
 -- CreateTable
-CREATE TABLE "tb_adoption_needs" (
+CREATE TABLE "tb_adoption_requirements" (
     "id" TEXT NOT NULL,
     "pet_id" TEXT NOT NULL,
     "needs" TEXT NOT NULL,
 
-    CONSTRAINT "tb_adoption_needs_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "tb_adoption_requirements_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -48,4 +48,4 @@ CREATE TABLE "tb_org" (
 ALTER TABLE "tb_pet" ADD CONSTRAINT "tb_pet_org_id_fkey" FOREIGN KEY ("org_id") REFERENCES "tb_org"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "tb_adoption_needs" ADD CONSTRAINT "tb_adoption_needs_pet_id_fkey" FOREIGN KEY ("pet_id") REFERENCES "tb_pet"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "tb_adoption_requirements" ADD CONSTRAINT "tb_adoption_requirements_pet_id_fkey" FOREIGN KEY ("pet_id") REFERENCES "tb_pet"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
