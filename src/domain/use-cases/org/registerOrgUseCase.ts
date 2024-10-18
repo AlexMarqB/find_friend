@@ -1,7 +1,6 @@
 import { OrgRepository } from "@/repositories/orgRepository";
 import { InvalidDataError } from "@/errors/InvalidDataError";
 import { _bcrypt } from "@/lib/bcrypt";
-import { prisma } from "@/lib/prisma";
 import { stringFormaters } from "@/utils";
 import { Prisma } from "@prisma/client";
 
