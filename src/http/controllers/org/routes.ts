@@ -1,14 +1,11 @@
 import { FastifyInstance } from "fastify";
-import { authenticateOrgController, refreshTokenController, registerOrgController } from "./orgFactory";
+import { registerOrgHandler, refreshTokenHandler, authenticateOrgHandler } from "./orgFactory";
 
 export async function orgRoutes(app: FastifyInstance) {
     // Public routes
-
-    app.post("/register", await registerOrgController())
+    app.post("/register", registerOrgHandler());
 
     // Auth routes
-
-    app.post("/authenticate", await authenticateOrgController())
-
-    app.patch("/token/refresh", await refreshTokenController())
+    app.post("/authenticate", authenticateOrgHandler());
+    app.patch("/token/refresh", refreshTokenHandler());
 }
