@@ -3,8 +3,11 @@
 	"version": "1.0.0",
 	"main": "index.js",
 	"scripts": {
+		"dev": "tsx watch src/server.ts",
 		"test": "vitest",
-		"dev": "tsx watch src/server.ts"
+		"test:e2e": "vitest run --dir src/tests/e2e",
+		"test:e2e:watch": "vitest --dir src/tests/e2e",
+		"pretest:e2e": "cd prisma/vitest-environment-prisma && npm link && cd ../../ && npm link vitest-environment-prisma"
 	},
 	"keywords": [],
 	"author": "",
