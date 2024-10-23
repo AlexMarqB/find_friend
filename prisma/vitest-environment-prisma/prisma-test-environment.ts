@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client'
 import cuid from 'cuid'
 import { execSync } from 'node:child_process'
 import { Environment } from 'vitest/environments'
+import { randomUUID } from 'node:crypto'
 
 const prisma = new PrismaClient()
 
@@ -23,7 +24,7 @@ export default <Environment> {
     transformMode: 'ssr',
     async setup () {
         console.log("Setting up Prisma environment")
-        const schema = cuid()
+        const schema = randomUUID()
         const dbUrl = generateDbURL(schema)
 
         process.env.DATABASE_URL = dbUrl
