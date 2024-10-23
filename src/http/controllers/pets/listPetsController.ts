@@ -10,7 +10,15 @@ export class ListPetsController {
     async handle(request: FastifyRequest, reply: FastifyReply) {
         const { city } = request.params as { city: string };
 
-        const { query } = request as { query: { name?: string, about?: string, age?: number, size?: Size, energy_level?: EnergyLevel, breed?: string, adoption_requirements?: string } };
+        if(!city) {
+            return reply.status(400).send({ error: 'City is required' });
+        }
+
+        console.log(city);
+
+        const query = request.query as { name?: string, about?: string, age?: number, size?: Size, energy_level?: EnergyLevel, breed?: string, adoption_requirements?: string };
+
+        console.log(`Query: ${JSON.stringify(query)}`);
 
         const filtersSchema = z.object({
             name: z.string().optional(),
@@ -35,16 +43,13 @@ export class ListPetsController {
             Object.entries(validatedSchema.data).filter(([_, value]) => value !== undefined)
           );
 
-        if (!city) {
-            return reply.status(400).send({ error: 'City is required' });
-        }
-
         try {
             const { orgs } = await this.listOrgsUseCase.execute(city);
             const pets = await this.useCase.execute(orgs, filters);
 
-            return reply.status(200).send({ pets });
+            return reply.status(200).send(pets);
         } catch (error: any) {
+            console.error(`Error: ${error}`);
             return reply.status(500).send({ error: 'Internal Server Error' });
         }
     }

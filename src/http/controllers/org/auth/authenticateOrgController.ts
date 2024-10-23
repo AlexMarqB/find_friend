@@ -9,7 +9,7 @@ export class AuthenticateOrgController {
 
 	async handle(request: FastifyRequest, reply: FastifyReply) {
 		const authenticateOrgSchema = z.object({
-			cnpj: z.string().length(14),
+			cnpj: z.string().max(18),
 			password: z.string().min(6),
 		});
 

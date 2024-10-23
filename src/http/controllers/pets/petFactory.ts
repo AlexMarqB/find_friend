@@ -8,25 +8,28 @@ import { ListPetsController } from "./listPetsController";
 import { GetPetDetailsUseCase } from "@/domain/use-cases/pet/getPetDetailsUseCase";
 import { GetPetDetailsController } from "./getPetDetailsController";
 
-const repository = new PetPrismaRepository();
+// Instancia os repositórios uma única vez
+const petRepository = new PetPrismaRepository();
 const orgRepository = new OrgPrismaRepository();
-let useCase;
+// Função para criar e retornar o handler do controller
+//@ts-ignore
+const createHandler = (Controller, UseCase, additionalRepository?, additionalUseCase?) => {
+    let useCase;
 
-export async function registerPetController() {
-    useCase = new RegisterPetUseCase(repository, orgRepository);
+    if (additionalUseCase) {
+        useCase = new UseCase(petRepository, additionalRepository ?? null);
+        const additionalUseCaseInstance = new additionalUseCase(additionalRepository);
+        const controller = new Controller(useCase, additionalUseCaseInstance);
+        return controller.handle.bind(controller);
+    }
 
-    return new RegisterPetController(useCase).handle;
-}
+    useCase = new UseCase(petRepository, additionalRepository ?? null);
+    const controller = new Controller(useCase);
+    return controller.handle.bind(controller);
+};
 
-export async function listPetsController() {
-    useCase = new ListPetsUseCase(repository);
-    const listOrgsUseCase = new ListOrgsByCityUseCase(orgRepository);
+// Exporta os handlers
+export const registerPetHandler = () => createHandler(RegisterPetController, RegisterPetUseCase, orgRepository);
+export const listPetsHandler = () => createHandler(ListPetsController, ListPetsUseCase, orgRepository, ListOrgsByCityUseCase);
+export const getPetDetailsHandler = () => createHandler(GetPetDetailsController, GetPetDetailsUseCase);
 
-    return new ListPetsController(useCase, listOrgsUseCase).handle;
-}
-
-export async function getPetDetailsController() {
-    useCase = new GetPetDetailsUseCase(repository);
-
-    return new GetPetDetailsController(useCase).handle;
-}

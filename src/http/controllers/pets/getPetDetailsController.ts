@@ -13,9 +13,9 @@ export class GetPetDetailsController {
         }
 
         try {
-            const pet = await this.useCase.execute(id);
+            const {pet} = await this.useCase.execute(id);
 
-            return reply.status(200).send({ pet });
+            return reply.status(200).send({pet});
         } catch (error: any) {
             if(error instanceof ResourceNotFoundError) {
                 return reply.status(404).send({ error: 'Pet not found', message: error.message });
