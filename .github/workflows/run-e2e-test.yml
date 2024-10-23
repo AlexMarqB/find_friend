@@ -17,7 +17,7 @@ jobs:
         env: 
           POSTGRES_USER: docker
           POSTGRES_PASSWORD: docker
-          POSTGRES_DATABASE: apisolid
+          POSTGRES_DATABASE: find-friend-api
 
     steps:
       - uses: actions/checkout@v4
