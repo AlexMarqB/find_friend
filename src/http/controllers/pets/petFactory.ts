@@ -11,16 +11,25 @@ import { GetPetDetailsController } from "./getPetDetailsController";
 // Instancia os repositórios uma única vez
 const petRepository = new PetPrismaRepository();
 const orgRepository = new OrgPrismaRepository();
-
 // Função para criar e retornar o handler do controller
 //@ts-ignore
-const createHandler = (Controller, UseCase, additionalRepository?) => {
-    const useCase = new UseCase(petRepository, additionalRepository);
+const createHandler = (Controller, UseCase, additionalRepository?, additionalUseCase?) => {
+    let useCase;
+
+    if (additionalUseCase) {
+        useCase = new UseCase(petRepository, additionalRepository ?? null);
+        const additionalUseCaseInstance = new additionalUseCase(additionalRepository);
+        const controller = new Controller(useCase, additionalUseCaseInstance);
+        return controller.handle.bind(controller);
+    }
+
+    useCase = new UseCase(petRepository, additionalRepository ?? null);
     const controller = new Controller(useCase);
     return controller.handle.bind(controller);
 };
 
 // Exporta os handlers
-export const registerPetController = () => createHandler(RegisterPetController, RegisterPetUseCase, orgRepository);
-export const listPetsController = () => createHandler(ListPetsController, ListPetsUseCase, new ListOrgsByCityUseCase(orgRepository));
-export const getPetDetailsController = () => createHandler(GetPetDetailsController, GetPetDetailsUseCase);
+export const registerPetHandler = () => createHandler(RegisterPetController, RegisterPetUseCase, orgRepository);
+export const listPetsHandler = () => createHandler(ListPetsController, ListPetsUseCase, orgRepository, ListOrgsByCityUseCase);
+export const getPetDetailsHandler = () => createHandler(GetPetDetailsController, GetPetDetailsUseCase);
+

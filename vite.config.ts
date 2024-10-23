@@ -9,7 +9,7 @@ export default defineConfig({
   },
   test: {
     environmentMatchGlobs: [
-      ['src/tests/e2e', 'prisma']
+      ['src/tests/e2e/**/*.spec.ts', 'prisma']
     ]
   }
 })

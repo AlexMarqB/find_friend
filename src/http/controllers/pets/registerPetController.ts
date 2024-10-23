@@ -19,7 +19,7 @@ export class RegisterPetController {
 			adoption_requirements: z.string(),
 		});
 
-		const { orgId } = request.params as { orgId: string };
+		const {sub} = request.user
 
 		try {
 			const validatedSchema = registerPetSchema.safeParse(request.body);
@@ -31,9 +31,9 @@ export class RegisterPetController {
 				});
 			}
 
-			const pet = await this.useCase.execute({
+			const {pet} = await this.useCase.execute({
 				...validatedSchema.data,
-				org_id: orgId,
+				org_id: sub,
 			});
 
 			return reply

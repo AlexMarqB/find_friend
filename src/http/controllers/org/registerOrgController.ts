@@ -1,13 +1,18 @@
 import { RegisterOrgUseCase } from "@/domain/use-cases/org/registerOrgUseCase";
 import { InvalidDataError } from "@/errors/InvalidDataError";
+import { Org } from "@prisma/client";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
+
+interface IResponse {
+    message: string;
+    org: Org;
+}
 
 export class RegisterOrgController {
     constructor(private useCase: RegisterOrgUseCase) {}
 
     async handle(request: FastifyRequest, reply: FastifyReply) {
-        console.log(this.useCase)
 
         const registerOrgSchema = z.object({
             cnpj: z.string().max(18),
@@ -34,13 +39,11 @@ export class RegisterOrgController {
             }
 
             const org = await this.useCase.execute(validatedSchema.data);
-            console.log("Use case executed", org)
 
             return reply.status(201).send({ message: 'Organization registered successfully', org });
 
         } catch (error: any) { // use 'any' para capturar todos os tipos de erro
             if (error instanceof InvalidDataError) {
-                console.log(error)
                 return reply.status(500).send({ error: 'Invalid Data', message: error.message });
             }
             return reply.status(500).send({ error: 'Internal Server Error' });

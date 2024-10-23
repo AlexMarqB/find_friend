@@ -1,15 +1,15 @@
 import { FastifyInstance } from "fastify";
-import { getPetDetailsController, listPetsController, registerPetController } from "./petFactory";
+import { getPetDetailsHandler, listPetsHandler, registerPetHandler } from "./petFactory";
 import { verifyJwt } from "@/http/middlewares/verifyJwt";
 
 export async function petRoutes(app: FastifyInstance) {
     // Public routes
 
-    app.get('/pets/list/:city', await listPetsController())
+    app.get('/pets/list/:city', await listPetsHandler())
 
-    app.get('/pets/:id', await getPetDetailsController())
+    app.get('/pets/:id', await getPetDetailsHandler())
 
     // Protected routes
 
-    app.post('/pets/register/:orgId', {onRequest: verifyJwt} ,await registerPetController())
+    app.post('/pets/register', {onRequest: verifyJwt} ,await registerPetHandler())
 }

@@ -4,6 +4,8 @@ import { OrgPrismaRepository } from "@/http/prisma-repositories/OrgPrismaReposit
 import { RefreshTokenController } from "./auth/refreshTokenController";
 import { RegisterOrgController } from "./registerOrgController";
 import { RegisterOrgUseCase } from "@/domain/use-cases/org/registerOrgUseCase";
+import { OrgDataController } from "./orgDataController";
+import { FindOrgByIdUseCase } from "@/domain/use-cases/org/findOrgByIdUseCase";
 
 // Instancia o repositório uma única vez
 const repository = new OrgPrismaRepository();
@@ -20,3 +22,4 @@ const createHandler = (Controller, UseCase) => {
 export const registerOrgHandler = () => createHandler(RegisterOrgController, RegisterOrgUseCase);
 export const authenticateOrgHandler = () => createHandler(AuthenticateOrgController, AuthenticateOrgUseCase);
 export const refreshTokenHandler = () => new RefreshTokenController().handle.bind(new RefreshTokenController());
+export const orgDataHandler = () => createHandler(OrgDataController, FindOrgByIdUseCase);
